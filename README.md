@@ -1,5 +1,5 @@
 # Hackers-of-Anonymous
-Fast Git guide:
+## Fast Git guide:
     Config
      0.Download https://git-scm.com/downloads
      1.Create folder "repo" on Desktop
@@ -7,7 +7,7 @@ Fast Git guide:
      2.1.git config --global user.name "My Name" 
          >git config --global user.email myEmail@example.com
      2.2.In cmd and enter "git clone https://github.com/Hackers-of-Anonymous/HFA"
-   Download
+    Download
      1.In cmd enter "cd c:/User/{YOURUSER}/Desktop/repo/HFA"
      2.Then enter "git pull"
     Upload
