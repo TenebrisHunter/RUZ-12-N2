@@ -1,0 +1,18 @@
+.h1{
+    font-family: 'Trebuchet MS';
+    font-size: 72;
+    text-align: center;
+
+}
+.body{
+    background-color: aqua;
+}
+.p1{
+    font-family: 'Trebuchet MS';
+    text-align: center;
+    text-weight: bold;
+}
+.obama{
+    text-align: center;
+    opacity: 50%;
+}
