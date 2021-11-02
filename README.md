@@ -1,5 +1,5 @@
 # Hackers-of-Anonymous
-Fast Git guide:\n
+Fast Git guide:
     Config
      0.Download https://git-scm.com/downloads
      1.Create folder "repo" on Desktop
