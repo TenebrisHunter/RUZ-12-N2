@@ -2,6 +2,7 @@
     font-family: 'Trebuchet MS';
     font-size: 72;
     text-align: center;
+    padding-top: 5%;
 
 }
 .body{
@@ -15,4 +16,7 @@
 .obama{
     text-align: center;
     opacity: 50%;
+}
+.mp{
+    margin: 5%;
 }
