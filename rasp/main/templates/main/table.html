@@ -1,18 +1,38 @@
 {% extends 'main/base.html' %}
 
+{% load static %}
+
 {% block title %}
 страница про блять таблицы
 {% endblock %}
  
 {% block content %}
+    <div class="container6">
+        <input autocomplete="off" type="text" placeholder="ФИО препода">
+    <span><!----><input autocomplete="off" type="text" id="start" name="start" required="" placeholder="Неделя"><!----><button><span></span><span>ui-btn</span></button><!----><!----></span>
+    </div>
     <div>
-        <table border="1px">
-            <tr><td>1</td></tr>
-            <tr><td>2</td></tr>
-            <tr><td>3</td></tr>
-            <tr><td>4</td></tr>
-            <tr><td>5</td></tr>
-            <tr><td>6</td></tr>
+        <table>
+            <th></th>
+            <th>фио препода</th>
+            <tr>
+                <td>пара 1</td>
+            </tr>
+            <tr>
+                <td>пара 2</td>
+            </tr>
+            <tr>
+                <td> пара 3</td>
+            </tr>
+            <tr>
+                <td> пара 4</td>
+            </tr>
+            <tr>
+                <td>пара 5</td>
+            </tr>
+            <tr>
+                <td>пара 6</td>
+            </tr>
         </table>
     </div>
 {% endblock %}
