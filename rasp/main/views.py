@@ -25,3 +25,7 @@ def create(request):
         'form': form
     }
     return render(request,'main/create.html', context)
+
+
+def table(request):
+    return render(request,'main/table.html')
