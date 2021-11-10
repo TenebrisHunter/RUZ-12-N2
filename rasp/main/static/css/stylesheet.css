@@ -1,7 +1,7 @@
 table {
     border-collapse: collapse;
     /*убираем пустые промежутки между ячейками*/
-    border: 3px solid grey;
+    border: 0px solid grey;
     /*устанавливаем для таблицы внешнюю границу серого цвета толщиной 1px*/
     empty-cells: hide;
     /*убираем пустые ячейки*/
