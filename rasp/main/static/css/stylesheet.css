@@ -1,38 +1,25 @@
 table {
-    border-collapse: collapse;
-    /*убираем пустые промежутки между ячейками*/
-    border: 0px solid grey;
-    /*устанавливаем для таблицы внешнюю границу серого цвета толщиной 1px*/
-    empty-cells: hide;
-    /*убираем пустые ячейки*/
+   border-collapse: collapse;
+   /*убираем пустые промежутки между ячейками*/
+   border: 0px solid grey;
+   /*устанавливаем для таблицы внешнюю границу серого цвета толщиной 1px*/
+   empty-cells: hide;
+   /*убираем пустые ячейки*/
  }
- th {
-    border: 1px solid grey;
+th {
+   border: 1px solid grey;
  }
- td {
-    border: 1px solid grey;
+td {
+   border: 1px solid grey;
  }
-/*бордеры*/
- th {
-    width: 30%;
- }
- td:first-child {
-    width: 10%;
- }
-/*ширина рядов*/
- th, td {
-    padding: 4px 5px;
- }
- /*высота рядов*/
 
 .inputFIO{
-    padding: 10px;
+   padding: 10px;
 }
-
 div.container6 {
-    height: 10em;
-    display: flex;
-    align-items: center;
-    justify-content: center }
-  div.container6 p {
-    margin: 0 }
+   height: 10em;
+   display: flex;
+   align-items: center;
+   justify-content: center }
+div.container6 p {
+   margin: 0 }
