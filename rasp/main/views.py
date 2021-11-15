@@ -5,7 +5,6 @@ from .forms import TaskForm
 import json
 import requests
 from django.http import JsonResponse
-from django.template.loader import get_template
 
 # Create your views here.
 def index(request):
@@ -41,4 +40,4 @@ def table(request):
     "lng": lng
     })
     data = response.json()
-    return get_template('main/table.html').render(data, request=request)
+    return render(request,'main/table.html', {'value': data})
