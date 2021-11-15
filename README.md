@@ -1,4 +1,11 @@
 # Hackers-of-Anonymous
+## Модуль расписания для сайта ОмГТУ
+-Титов Даниил
+-Сурма Леоонид
+-Михаленя Сергей
+-Служаев Владимир
+-Пакусина Юлия
+-Родькин Алексей
 ## Fast Git guide:
     Config
      0.Download https://git-scm.com/downloads
