@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.views.generic import TemplateView
 from .models import Task
 from .forms import TaskForm
 import json
@@ -23,24 +24,19 @@ def create(request):
             error = "form invalid"
 
     form = TaskForm()
-    context = {
+    conttext = {
         'form': form
     }
-    return render(request,'main/create.html', context)
-
+    return render(request,'main/create.html', conttext)
 
 def table(request):
-    return render(request,'main/table.html')
-
-def json_r(request):
-    with open('data.json', 'r') as file:
-        data = json.load(file)
-
-def profile(request):
     data = {
-        'name': 'Vitor',
-        'location': 'Finland',
-        'is_active': True,
-        'count': 28
+        "values": [
+            'hello',
+            'rwo',
+            'shahs',
+            'next',
+            'ddddd'
+        ]
     }
-    return JsonResponse(data)
+    return render(request,'main/table.html',data)
