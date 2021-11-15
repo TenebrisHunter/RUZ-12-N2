@@ -30,13 +30,6 @@ def create(request):
     return render(request,'main/create.html', conttext)
 
 def table(request):
-    data = {
-        "values": [
-            'hello',
-            'rwo',
-            'shahs',
-            'next',
-            'ddddd'
-        ]
-    }
-    return render(request,'main/table.html',data)
+    with open("main/fixtures/data.json", encoding='utf-8') as json_file:
+        data = json.load(json_file)
+    return render(request,'main/table.html', data)
