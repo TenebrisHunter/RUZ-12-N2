@@ -1,1 +1,16 @@
-rasp/main/values.json
+import requests
+
+number=879
+start='2021.11.08'
+finish='2021.11.14'
+lng=1
+
+response = requests.get('https://rasp.omgtu.ru/api/schedule/person', params={
+    "number": number,
+    "start": start,
+    "finish": finish,
+    "lng": lng
+})
+
+data = response.json()
+print(data)
