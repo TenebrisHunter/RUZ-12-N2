@@ -47,10 +47,11 @@
                 <th></th>
                 {% for prepods in value %}
                 <th>{{ prepods.lecturer }}</th>
+                {% endfor %}
                 {% for el in value %}
                 <tr>
                     <th><div>{{ el.beginLesson }}</div><small>{{ el.lessonNumberStart}} - пара</small></th>
-                    <td>{{ el.auditorium }}{{ el.kindOfWork }}{{ el.subGroup }}</td>
+                    <td>{{ el.auditorium }}<br>{{ el.kindOfWork }}<br>{{ el.subGroup }}<br></td>
                 </tr>
                 {% endfor %}
             </table>
