@@ -45,37 +45,14 @@
         <div>
             <table width="100%">
                 <th></th>
-                <th>препод 1</th>
-                <th>препод 2</th>
-                <th>препод 3</th>
-                <th>препод 4</th>
-                <th>препод 5</th>
+                {% for prepods in value %}
+                <th>{{ prepods.lecturer }}</th>
+                {% for el in value %}
                 <tr>
-                    <th><div>08:00 - 09:30</div><small>1-я пара</small></th>
-                    {% for el in value %}
-                    <td>{{ value }}</td>
-                    {% endfor %}
+                    <th><div>{{ el.beginLesson }}</div><small>{{ el.lessonNumberStart}} - пара</small></th>
+                    <td>{{ el.auditorium }}{{ el.kindOfWork }}{{ el.subGroup }}</td>
                 </tr>
-                <tr>
-                    <th><div>09:40 - 11:10</div><small>2-я пара</small></th>
-                    <td>пара 2</td>
-                </tr>
-                <tr>
-                    <th><div>11:20 - 12:50</div><small>3-я пара</small></th>
-                    <td> пара 3</td>
-                </tr>
-                <tr>
-                    <th><div>14:00 - 15:30</div><small>4-я пара</small></th>
-                    <td> пара 4</td>
-                </tr>
-                <tr>
-                    <th><div>15:40 - 17:10</div><small>5-я пара</small></th>
-                    <td>пара 5</td>
-                </tr>
-                <tr>
-                    <th><div>17:20 - 18:50</div><small>6-я пара</small></th>
-                    <td>пара 6</td>
-                </tr>
+                {% endfor %}
             </table>
         </div>
     </div>
