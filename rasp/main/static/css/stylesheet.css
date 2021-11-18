@@ -8,9 +8,11 @@ table {
  }
 th {
    border: 1px solid grey;
+   padding:  4.8px;
  }
 td {
    border: 1px solid grey;
+   padding: 4px;
  }
 
 .inputFIO{
