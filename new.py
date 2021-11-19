@@ -9,8 +9,7 @@ response = requests.get('https://rasp.omgtu.ru/api/search?term=в&type=person')
 data = response.json()
 
 cursor.executescript('''
-DROP TABLE IF EXISTS teachers;
-CREATE TABLE teachers (id varchar(8000), description text, label text, type text)
+CREATE TABLE if not exists teachers (id varchar(8000), description text, label text, type text)
 ''')
 
 for teacher in data:
