@@ -1,13 +1,13 @@
 from models import *
 import requests
+import json
  
 with db:
-    db.create_tables([Allteach])
-    #dict = ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я']
+    dict = ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я']
     
-    #for i in dict:
-        #response = requests.get('https://rasp.omgtu.ru/api/search?term='+i+'&type=person')
-        #f.write(response.text)
+    for i in dict:
+        response = requests.get('https://rasp.omgtu.ru/api/search?term='+i+'&type=person')
+        Allteach.insert_many(response.json()).execute()
         #for o in dict:
             #response = requests.get('https://rasp.omgtu.ru/api/search?term='+i+o+'&type=person')
             #f.write(response.text)
