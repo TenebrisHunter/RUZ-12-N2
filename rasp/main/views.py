@@ -34,7 +34,7 @@ def table(request):
     start='2021.11.16'
     finish='2021.11.16'
     lng=1
-    response = requests.get('https://rasp.omgtu.ru/api/schedule/person/1012', params={
+    response = requests.get('https://rasp.omgtu.ru/api/schedule/person/1244', params={
     "start": start,
     "finish": finish,
     "lng": lng
