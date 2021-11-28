@@ -7,6 +7,14 @@
 {% endblock %}
  
 {% block content %}
+<div class="container6">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.id }}
+        <input type="submit" value="Submit">
+    </form>
+</div>
+<!--
     <div class="container6">
         <input autocomplete="off" type="text" placeholder="ФИО препода">
         <span>
@@ -17,7 +25,6 @@
         </span>
     </div>
     <div>
-        <!--
         <div>
             <div>
                 <table>
@@ -48,12 +55,13 @@
         </div>
          -->
         <div>
+            {% if form %}
             <table width="100%">
                 <th></th>
-                {% for prepods in value %}
+                {% for prepods in form %}
                 <th>{{ prepods.lecturer }}</th>
                 {% endfor %}
-                {% for el in value %}
+                {% for el in form %}
                 <tr>
                     <th><div>{{ el.beginLesson }}-{{ el.endLesson }}</div><small>{{ el.lessonNumberStart}}-я пара</small></th>
                     <td>{{ el.discipline }}<br>
@@ -70,6 +78,9 @@
                 </tr>
                 {% endfor %}
             </table>
+            {% else %}
+            <p>Сначала введите id</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

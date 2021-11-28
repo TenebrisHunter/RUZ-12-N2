@@ -1,5 +1,6 @@
 from .models import Task
 from django.forms import ModelForm, TextInput, Textarea
+from django import forms
 
 
 class TaskForm(ModelForm):
@@ -15,3 +16,6 @@ class TaskForm(ModelForm):
                 'placeholder': 'Введите описание'
             }),
         }
+
+class PrepodForm(forms.Form):
+    id = forms.CharField(label='ID', max_length=100)

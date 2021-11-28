@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .models import Task
-from .forms import TaskForm
+from .forms import PrepodForm, TaskForm
 import json
 import requests
-from django.http import JsonResponse
+from django.http import *
 
 # Create your views here.
 def index(request):
@@ -31,13 +31,17 @@ def create(request):
     return render(request,'main/create.html', conttext)
 
 def table(request):
-    start='2021.11.16'
-    finish='2021.11.16'
-    lng=1
-    response = requests.get('https://rasp.omgtu.ru/api/schedule/person/1244', params={
-    "start": start,
-    "finish": finish,
-    "lng": lng
-    })
-    data = response.json()
-    return render(request,'main/table.html', {'value': data})
+    if request.method == 'POST':
+        form = PrepodForm(request.POST)
+        if form.is_valid():
+            start='2021.11.16'
+            finish='2021.11.16'
+            response = requests.get('https://rasp.omgtu.ru/api/schedule/person/'+form.cleaned_data['id'], params={
+                "start": start,
+                "finish": finish,
+                "lng": 1
+                })
+            form = response.json()
+        else:
+            form = PrepodForm()
+    return render(request,'main/table.html', {'form': form})
