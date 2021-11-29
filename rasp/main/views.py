@@ -31,8 +31,9 @@ def create(request):
     return render(request,'main/create.html', conttext)
 
 def table(request):
+    form_class = PrepodForm
+    form = form_class(request.POST or None)
     if request.method == 'POST':
-        form = PrepodForm(request.POST)
         if form.is_valid():
             start='2021.11.16'
             finish='2021.11.16'
@@ -44,4 +45,4 @@ def table(request):
             form = response.json()
         else:
             form = PrepodForm()
-    return render(request,'main/table.html', {'form': form})
+    return render(request,'main/table.html', { 'form': form })
