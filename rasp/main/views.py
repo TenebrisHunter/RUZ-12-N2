@@ -35,11 +35,10 @@ def table(request):
     form = form_class(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
-            start='2021.11.16'
-            finish='2021.11.16'
+            start=form.cleaned_data['date']
             response = requests.get('https://rasp.omgtu.ru/api/schedule/person/'+form.cleaned_data['id'], params={
                 "start": start,
-                "finish": finish,
+                "finish": start,
                 "lng": 1
                 })
             form = response.json()

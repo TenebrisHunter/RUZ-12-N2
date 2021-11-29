@@ -19,3 +19,4 @@ class TaskForm(ModelForm):
 
 class PrepodForm(forms.Form):
     id = forms.CharField(label='ID', max_length=100)
+    date= forms.DateField(label='Insert ur date', widget=forms.SelectDateWidget)
