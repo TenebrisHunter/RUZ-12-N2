@@ -12,49 +12,9 @@
         {% csrf_token %}
         {{ form.id }}
         {{ form.date }}
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" class="btn btn-success">
     </form>
 </div>
-<!--
-    <div class="container6">
-        <input autocomplete="off" type="text" placeholder="ФИО препода">
-        <span>
-            <input autocomplete="off" type="text" id="start" name="start" required="" placeholder="День">
-            <button>
-                <span>ui-btn</span>
-            </button>
-        </span>
-    </div>
-    <div>
-        <div>
-            <div>
-                <table>
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th> 
-                            <small>препод 1</small>
-                        </th>
-                        <th> 
-                            <small>препод 2</small>
-                        </th>
-                        <th> 
-                            <small>препод 3</small>
-                        </th>
-                        <th> 
-                            <small>препод 4</small>
-                        </th>
-                        <th> 
-                            <small>препод 5</small>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-         -->
         <div>
             {% if form %}
             <table width="100%">
