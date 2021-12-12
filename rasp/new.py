@@ -2,7 +2,7 @@ import requests
 import sqlite3
 import json
 
-conn = sqlite3.connect('data.db')
+conn = sqlite3.connect('rasp/db.sqlite3')
 cursor = conn.cursor()
 
 cursor.executescript('''
