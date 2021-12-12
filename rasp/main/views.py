@@ -35,16 +35,22 @@ def table(request):
     form = form_class(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
+            oneName = form.cleaned_data['name']
+            oneNamelist = oneName.split()
             start=form.cleaned_data['date']
-            responseFIO  = requests.get('https://rasp.omgtu.ru/api/search?term='+form.cleaned_data['name']+'&type=person')
-            responseFIOJSON = responseFIO.json()
-            nameID = responseFIOJSON[0]['id']
-            response = requests.get('https://rasp.omgtu.ru/api/schedule/person/'+str(nameID), params={
-                "start": start,
-                "finish": start,
-                "lng": 1
-                })
-            form = response.json()
+            jsonlist = []
+            for i in oneNamelist:
+                responseFIO  = requests.get('https://rasp.omgtu.ru/api/search?term='+str(i)+'&type=person')
+                responseFIOJSON = responseFIO.json()
+                nameID = responseFIOJSON[0]['id']
+                response = requests.get('https://rasp.omgtu.ru/api/schedule/person/'+str(nameID), params={
+                    "start": start,
+                    "finish": start,
+                    "lng": 1
+                    })
+                form1 = response.json()
+                jsonlist.append(form1)
+                form = jsonlist
         else:
             form = PrepodForm()
     return render(request,'main/table.html', { 'form': form })

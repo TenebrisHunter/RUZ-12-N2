@@ -19,10 +19,11 @@
             {% if form %}
             <table width="100%">
                 <th></th>
-                {% for prepods in form %}
+                {% for all in form %}
+                {% for prepods in all %}
                 <th>{{ prepods.lecturer }}</th>
                 {% endfor %}
-                {% for el in form %}
+                {% for el in all %}
                 <tr>
                     <th><div>{{ el.beginLesson }}-{{ el.endLesson }}</div><small>{{ el.lessonNumberStart}}-я пара</small></th>
                     <td>{{ el.discipline }}<br>
@@ -37,6 +38,7 @@
                         {% endif %}<br>
                     </td>
                 </tr>
+                {% endfor %}
                 {% endfor %}
             </table>
             {% else %}
