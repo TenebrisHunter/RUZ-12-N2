@@ -49,6 +49,7 @@ def table(request):
                     "lng": 1
                     })
                 form1 = response.json()
+                form1[0]["kaif"]=(str(i))
                 jsonlist.append(form1)
                 form = jsonlist
         else:
