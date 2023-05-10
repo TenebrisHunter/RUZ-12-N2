@@ -1,0 +1,62 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    страница про таблицы
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form method="post" class="form-control">
+            {% csrf_token %}
+            {{ form.name }}
+            {{ form.date }}
+            <input type="submit" value="Submit" class="btn btn-default">
+        </form>
+    </div>
+    <div>
+        {% if form.eventsData %}
+            <table>
+                <tr>
+                {% for type in form.eventsData %}
+                    <th border="0">
+                    <div>{{ type.description }}</div>
+                    <table border="1" cellspacing="5" cellpadding="5">
+                    {% for el in type.list %}
+                        <tr>
+                            <th width="80px" bgcolor="white">{{ el.date }}</th>
+                            <th width="120px" bgcolor="white"> {{ type.description }} </th>
+                            <th width="80px" bgcolor="white"> {{ type.type }} </th>
+                        <tr>
+                        <th>
+                            <td bgcolor="white">
+                                <div>{{ el.beginLesson }}-{{ el.endLesson }}</div>
+                                <small>{{ el.lessonNumberStart }}-я пара</small>
+                            </td>
+                            <td colspan="2" bgcolor="white">{{ el.discipline }}<br>
+                                {{ el.kindOfWork }}<br>
+                                {{ el.auditorium }}<br>
+                                {% if el.stream != None %}
+                                    {{ el.stream }}
+                                {% elif el.group != None %}
+                                    {{ el.group }}
+                                {% else %}
+                                    {{ el.subGroup }}
+                                {% endif %}<br>
+                            </td>
+                        </th>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                {% endfor %}
+                </tr>
+            </table>
+        {% else %}
+            <div class="container6">
+            <p>Сначала введите запрос</p>
+            </div>
+        {% endif %}
+    </div>
+    </div>
+{% endblock %}
