@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+create task
+{% endblock %}
+ 
+{% block content %}
+    <h1>Делай свои заметки</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.title }}<br>
+        {{ form.task }}<br>
+        <button type="submit" class="btn btn-default">Создать</button>
+        <span>{{ error }}</span>
+    </form>
+
+{% if tasks %}:
+    {% for el in tasks %}
+        <div class="alert alert-warning mt-2">
+        <h3>{{ el.title }}</h3>
+            <p>{{ el.tasks }}</p>
+        </div>
+    {% endfor %}
+{% else %}:
+    <p> </p>
+{% endif %}
+{% endblock %}

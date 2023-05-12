@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://maxcdn/bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min/js"></script>
+
+<style>
+     html {
+    background-color: lightsteelblue;
+    background-image: url(/static/kartinka.jpg);
+    background-size: 700px;
+    width: 2040px;
+    height: 500px;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: 50% -80%;
+     }
+    .top-container{
+        padding-top:30px;
+    }
+    .container{
+        height: 100%
+        length: 100%
+    }
+</style>
+</head>
+
+<body>
+<nav class="navbar navbar-default" bgcolor="darkblue">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href=" {%url 'home'  %}">Расписание ОмГТУ</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="topNavBar">
+                <u1 class="nav navbar-nav navbar-left">
+                    <li class="">
+                        <a href="{%url 'table' %}" >
+                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp
+                            Расписание
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="{%url 'create' %}" >
+                            <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>&nbsp
+                            Заметки
+                        </a>
+                    </li>
+                </u1>
+
+                <u1 class="nav navbar-nav navbar-right">
+                    <li class="">
+                        <a href="{%url 'about'  %}" >
+                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp
+                            О приложении
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="{%url 'tests' %}" >
+                            <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp
+                            Разработчикам
+                        </a>
+                    </li>
+                </u1>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+</body>

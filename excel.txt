@@ -1,0 +1,38 @@
+import openpyxl
+from openpyxl import load_workbook
+from tkinter import *
+from tkinter import messagebox
+
+
+workbook = openpyxl.load_workbook('example.xlsx')
+worksheet = workbook.add_worksheet()
+
+
+def save():
+    fn = 'example.xlsx'
+    wb = load_workbook(fn)
+    ws = wb['data']
+    data = (e.get(),lb['text'])
+    ws.append(data)
+    wb.save(fn)
+    wb.close()
+    messagebox.askokcancel('Сохранение', 'Успешно сохранено')
+
+
+
+
+
+root = Tk()
+root.title('Tect')
+
+root .geometry('200x200')
+root.resizable(9, 6)
+
+e = Entry(root)
+e.pack()
+lb = Label(root, text='1 лейбл', font= ' Arial 15 bold')
+lb. pack()
+btn = Button(root, text='Сохранить', font='Arial 15 bold', command=save)
+btn.pack()
+
+root.mainloop()

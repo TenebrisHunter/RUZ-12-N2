@@ -1,0 +1,54 @@
+li a{
+   color: midnightblue;
+}
+html {
+    background-color: lightsteelblue;
+    background-image: url(https://psv4.userapi.com/c534536/u353038455/docs/d43/88aa5cdad575/logo.png?extra=wJOIcQ_a8SwepPF0K2AHe83PiWh6jV3TXYpEY9n1NzgVAKgSlLOTS1YIA5ATrDo6pCoDMV__ypQ1DXJbEmC5Bf06v4Cy7cbprOIhd2xfRZ255M-YOuBtPuPMFva66_usErGLy5tXgPfvg98y4RY-47Y3Uw);
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: 50% -30%;
+}
+.navbar{
+    border-radius: 0;
+}
+.navbar-brand{
+    font-family:'Satisfy', cursive;
+}
+table {
+font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+font-size: 14px;
+border-radius: 8px;
+border-spacing: 0;
+}
+th {
+color: midnightblue;
+padding: 5px 20px;
+}
+th, td {
+border-style: solid;
+border-width: 0 1px 1px 0;
+border-color: cornflowerblue;
+}
+th:first-child, td:first-child {
+text-align: left;
+}
+th:first-child {
+border-top-left-radius: 8px;
+}
+th:last-child {
+border-top-right-radius: 8px;
+border-right: none;
+}
+td {
+padding: 10px 20px;
+background: lightblue;
+}
+tr:last-child td:first-child {
+border-radius: 0 0 0 8px;
+}
+tr:last-child td:last-child {
+border-radius: 0 0 8px 0;
+}
+tr td:last-child {
+border-right: none;
+}
