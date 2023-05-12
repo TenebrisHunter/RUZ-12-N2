@@ -12,18 +12,41 @@ class Lesson:
 
 
 @dataclass
-class SubjectTuple:
+class SubjectLessons:
     subject: str
-    lessons: List[Lesson]
-
+    lesssons: List[Lesson]
 
 @dataclass
 class LessonTuple:
     time: str
-    lesson: SubjectTuple
+    subjectsLessons: List[SubjectLessons]
 
 
 @dataclass
 class Raspisanie:
     date: str
+    subjects: List[str]
     lessonsToTime: List[LessonTuple]
+
+    # {
+    #   date: str,
+    #   subjects: [str],
+    #   lessonsToTime: [
+    #       {
+    #            time: str,
+    #            subjustsLessons: [
+    #                {
+    #                    subject: str,
+    #                    lessons: [
+    #                        {
+    #                            discipline: str
+    #                            workType: str
+    #                            auditoriumNumber: str
+    #                            vmestimost: int
+    #                            prepod: str
+    #                        }
+    #                    ]
+    #                }
+    #            ]
+    #       }
+    #    ]
