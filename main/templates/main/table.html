@@ -31,15 +31,16 @@
         {% for item in form.eventsData.schedule %}
         <tr>
             <td>{{item.object}}</td>
-            {% for sch_pair in item.schedule %}
+            {% for sch_pair in item.schedule %}   <!--время пары в расписании-->
             <td>
                 {% for pair in element.pairs %}
-                    {% if sch_pair.start == pair.beginLesson %}
+                    {% if sch_pair.start == pair.beginLesson %} <!---->
                         {% if sch_pair.start == pair.endLesson %}
                         Дисциплина: {{sch_pair.discipline}}<br>
                         Тип работы: {{sch_pair.kindOfWork}}<br>
                         Аудитория: {{sch_pair.auditorium}}<br>
                         Вместимость: {{sch_pair.auditoriumAmount}}<br>
+                        ___________<br>
                         {% endif %}
                     {% endif %}
                 {% endfor %}
