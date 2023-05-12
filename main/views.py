@@ -8,6 +8,7 @@ from .forms import PrepodForm, TaskForm
 from .models import Task
 from .viewsModels import TableViewModel
 
+
 # Create your views here.
 def index(request):
     tasks = Task.objects.order_by('-id')
@@ -34,6 +35,7 @@ def create(request):
     }
     return render(request, 'main/create.html', conttext)
 
+
 def table(request):
     vm = TableViewModel()
     form_class = PrepodForm
@@ -43,16 +45,34 @@ def table(request):
             oneName = form.cleaned_data['name']
             oneNamelist = set(oneName.split())
             start = form.cleaned_data['date']
+            dates = set()
+            pairs = set()
             allTypeList = []
+            all_schedule = []
+            time = []
+            # {date:"", pairs: [{time: "", objects: [{name: "", type: "", auditory: {type:"", amount:"", label:""}}]}]}
             for searchQuery in oneNamelist:
-                result = vm.get_search(query=searchQuery)
-                for item in result:
+                objects = vm.get_search(query=searchQuery)
+                for item in objects:
                     id = item['id']
                     type = item['type']
                     schedule = vm.get_schedule(type, id, start, end=start)
                     if (item["type"] != "lecture") and (item["type"] != "auditorium" and (item["type"] != "building")):
                         allTypeList.append({"type": item["type"], "description": item["label"], "list": schedule})
-            form.eventsData = allTypeList
+                        for pair in schedule:
+                            dates.add(pair['date'])
+                            pairs.add(tuple([pair['beginLesson'], pair['endLesson']]))
+                        all_schedule.append({'object': item['label'], 'schedule': schedule})
+            dates = sorted(dates)
+            pairs = sorted(pairs)
+            for date in dates:
+                time.append({
+                    'date': date,
+                    'pairs': [{'start': pair[0], 'end': pair[1]} for pair in pairs]
+                })
+
+            form.eventsData = {'time': time, 'schedule': all_schedule}
+
         else:
             form = PrepodForm()
     return render(request, 'main/table.html', {'form': form})
