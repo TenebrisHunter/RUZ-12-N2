@@ -6,16 +6,19 @@ import json
 import requests
 from django.http import *
 
+
 # Create your views here.
 def index(request):
     tasks = Task.objects.order_by('-id')
-    return render(request,'main/index.html', {'title': 'main page', 'tasks': tasks})
+    return render(request, 'main/index.html', {'title': 'main page', 'tasks': tasks})
+
 
 def about(request):
-    return render(request,'main/about.html')
+    return render(request, 'main/about.html')
+
 
 def create(request):
-    error=""
+    error = ""
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
@@ -28,7 +31,8 @@ def create(request):
     conttext = {
         'form': form
     }
-    return render(request,'main/create.html', conttext)
+    return render(request, 'main/create.html', conttext)
+
 
 def table(request):
     form_class = PrepodForm
@@ -37,24 +41,29 @@ def table(request):
         if form.is_valid():
             oneName = form.cleaned_data['name']
             oneNamelist = oneName.split()
-            start=form.cleaned_data['date']
-            jsonlist = []
+            start = form.cleaned_data['date']
+            allTypeList = []
             for i in oneNamelist:
-                responseFIO  = requests.get('https://rasp.omgtu.ru/api/search?term='+str(i)+'&type=person')
-                responseFIOJSON = responseFIO.json()
-                nameID = responseFIOJSON[0]['id']
-                response = requests.get('https://rasp.omgtu.ru/api/schedule/person/'+str(nameID), params={
-                    "start": start,
-                    "finish": start,
-                    "lng": 1
-                    })
-                form1 = response.json()
-                form1[0]["kaif"]=(str(i))
-                jsonlist.append(form1)
-                form = jsonlist
+                responseRes = requests.get(
+                    'https://rasp.omgtu.ru/api/search?term=' + str(i))
+                responseJSON = responseRes.json()
+
+                for item in responseJSON:
+                        id = item['id']
+                        response = requests.get('https://rasp.omgtu.ru/api/schedule/' + item["type"] + '/' + str(id),
+                                                params={
+                                                    "start": start,
+                                                    "finish": start,
+                                                    "lng": 1
+                                                })
+                        if item["type"] != "lecturer":
+                            responseDetail = response.json()
+                            allTypeList.append({"description": item["label"], "list": responseDetail})
+            form.eventsData = allTypeList
         else:
             form = PrepodForm()
-    return render(request,'main/table.html', { 'form': form })
+    return render(request, 'main/table.html', {'form': form})
+
 
 def tests(request):
     return render(request, 'main/tests.html')
