@@ -1,11 +1,9 @@
-import json
-import requests
-from django.http import *
+
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
 
 from .forms import PrepodForm, TaskForm
 from .models import Task
+from .utils import sort_dict
 from .viewsModels import TableViewModel
 
 
@@ -38,43 +36,53 @@ def create(request):
 
 def table(request):
     vm = TableViewModel()
-    form_class = PrepodForm
-    form = form_class(request.POST or None)
     if request.method == 'POST':
+
+        form = PrepodForm(request.POST)
+
         if form.is_valid():
-            oneName = form.cleaned_data['name']
-            oneNamelist = set(oneName.split())
+            one_name = form.cleaned_data['name']
+            one_name_list = set(one_name.split())
             start = form.cleaned_data['date']
             dates = set()
             pairs = set()
-            allTypeList = []
-            all_schedule = []
-            time = []
-            # {date:"", pairs: [{time: "", objects: [{name: "", type: "", auditory: {type:"", amount:"", label:""}}]}]}
-            for searchQuery in oneNamelist:
-                objects = vm.get_search(query=searchQuery)
+
+            all_schedule = {}
+            for search_query in one_name_list:
+                objects = vm.get_search(query=search_query)
                 for item in objects:
-                    id = item['id']
-                    type = item['type']
-                    schedule = vm.get_schedule(type, id, start, end=start)
-                    if (item["type"] != "lecture") and (item["type"] != "auditorium" and (item["type"] != "building")):
-                        allTypeList.append({"type": item["type"], "description": item["label"], "list": schedule})
+                    schedule = vm.get_schedule(item['type'], item['id'], start, end=start)
+                    if item["type"] not in ("lecture", "building"):
                         for pair in schedule:
-                            dates.add(pair['date'])
-                            pairs.add(tuple([pair['beginLesson'], pair['endLesson']]))
-                        all_schedule.append({'object': item['label'], 'schedule': schedule})
-            dates = sorted(dates)
-            pairs = sorted(pairs)
-            for date in dates:
-                time.append({
-                    'date': date,
-                    'pairs': [{'start': pair[0], 'end': pair[1]} for pair in pairs]
-                })
 
-            form.eventsData = {'time': time, 'schedule': all_schedule}
+                            if pair['date'] not in all_schedule:
+                                all_schedule[pair['date']] = {}
+                                dates.add(pair['date'])
 
-        else:
-            form = PrepodForm()
+                            item_time = f"{pair['beginLesson']} - {pair['endLesson']}"
+                            if item_time not in all_schedule[pair['date']]:
+                                all_schedule[pair['date']][item_time] = {}
+                                pairs.add(item_time)
+
+                            if search_query not in all_schedule[pair['date']][item_time]:
+                                all_schedule[pair['date']][item_time][search_query] = []
+
+                            if pair not in all_schedule[pair['date']][item_time][search_query]:
+                                same = list(filter(
+                                    lambda x: x["kindOfWork"] == pair["kindOfWork"] and x["subGroup"] == pair["subGroup"],
+                                    all_schedule[pair['date']][item_time][search_query]
+                                ))
+                                if same:
+                                    same_p = same[0]
+                                    same_p["listOfLecturers"].extend(pair["listOfLecturers"])
+                                else:
+                                    all_schedule[pair['date']][item_time][search_query].append(pair)
+
+            all_schedule = sort_dict(all_schedule)
+            form.eventsData = {'schedule': all_schedule, 'names': one_name_list}
+
+    else:
+        form = PrepodForm()
     return render(request, 'main/table.html', {'form': form})
 
 

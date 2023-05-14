@@ -3,58 +3,107 @@
 {% load static %}
 
 {% block title %}
-Таблица рассписания
+    Таблица рассписания
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <form method="post" class="form-control">
-        {% csrf_token %}
-        {{ form.name }}
-        {{ form.date }}
-        <input type="submit" value="Submit" class="btn btn-default">
-    </form>
-</div>
-<div>
-    {% if form.eventsData %}
-    {% for element in form.eventsData.time %}
-    <table border="1" cellspacing="5" cellpadding="5">
-        <tr>
-            <td>{{element.date}}</td>
-            {% for pair in element.pairs %}
-            <td>
-                {{pair.start}} - {{pair.end}}
-            </td>
-            {% endfor %}
-
-        </tr>
-        {% for item in form.eventsData.schedule %}
-        <tr>
-            <td>{{item.object}}</td>
-            {% for sch_pair in item.schedule %}   <!--время пары в расписании-->
-            <td>
-                {% for pair in element.pairs %}
-                    {% if sch_pair.start == pair.beginLesson %} <!---->
-                        {% if sch_pair.start == pair.endLesson %}
-                        Дисциплина: {{sch_pair.discipline}}<br>
-                        Тип работы: {{sch_pair.kindOfWork}}<br>
-                        Аудитория: {{sch_pair.auditorium}}<br>
-                        Вместимость: {{sch_pair.auditoriumAmount}}<br>
-                        ___________<br>
-                        {% endif %}
-                    {% endif %}
-                {% endfor %}
-            </td>
-            {% endfor %}
-        </tr>
-
-        {% endfor %}
-    </table>
-    {% endfor %}
-    {% else %}
-    <div class="container6">
-        <p>Сначала введите запрос</p>
+    <div class="container">
+        <form method="post" class="form-control">
+            {% csrf_token %}
+            {{ form.name }}
+            {{ form.date }}
+            <input type="submit" value="Submit" class="btn btn-default">
+        </form>
     </div>
-    {% endif %}
-</div>
+    <div>
+        {% if form.eventsData %}
+            {#            {% for element in form.eventsData.time %}#}
+            {#                <table border="1" cellspacing="5" cellpadding="5">#}
+            {#                    <tr>#}
+            {#                        <td>{{ element.date }}</td>#}
+            {#                        {% for pair in element.pairs %}#}
+            {#                            <td>#}
+            {#                                {{ pair.start }} - {{ pair.end }}#}
+            {#                            </td>#}
+            {#                        {% endfor %}#}
+            {##}
+            {#                    </tr>#}
+            {#                    {% for item in form.eventsData.schedule %}#}
+            {#                        <tr>#}
+            {#                            <td>{{ item.object }}</td>#}
+            {#                            {% for sch_pair in item.schedule %}#}
+            {#                                <td>#}
+            {#                                    {% for pair in element.pairs %}#}
+            {#                                        {% if sch_pair.start == pair.beginLesson %}#}
+            {#                                            {% if sch_pair.start == pair.endLesson %}#}
+            {#                                                Дисциплина: {{ sch_pair.discipline }}<br>#}
+            {#                                                Тип работы: {{ sch_pair.kindOfWork }}<br>#}
+            {#                                                Аудитория: {{ sch_pair.auditorium }}<br>#}
+            {#                                                Вместимость: {{ sch_pair.auditoriumAmount }}<br>#}
+            {#                                            {% endif %}#}
+            {#                                        {% endif %}#}
+            {#                                    {% endfor %}#}
+            {#                                </td>#}
+            {#                            {% endfor %}#}
+            {#                        </tr>#}
+            {##}
+            {#                    {% endfor %}#}
+            {#                </table>#}
+            {##}
+            {#            {% endfor %}#}
+
+            {% for date, date_item in form.eventsData.schedule.items %}
+                <table border="1" cellspacing="5" cellpadding="5">
+                    <tr>
+                        <th>{{ date }}</th>
+                        {% for name in form.eventsData.names %}
+                            <th>{{ name }}</th>
+                        {% endfor %}
+                    </tr>
+                    <tbody>
+                    {% for time, item in date_item.items %}
+                        <tr>
+                            <td>{{ time }}</td>
+                            {% for name_ in form.eventsData.names %}
+                                {% if name_ not in item.keys %}
+                                    <td></td>
+                                {% else %}
+                                    {% for name, value in item.items %}
+                                        {% if name == name_ %}
+                                            <td>
+                                            {% for val in value %}
+                                                {% if val.subGroup %}
+                                                    Подгруппа: {{ val.subGroup }}<br>
+                                                {% endif %}
+                                                Дисциплина: {{ val.discipline }}<br>
+                                                Тип работы: {{ val.kindOfWork }}<br>
+                                                Аудитория: {{ val.auditorium }}<br>
+                                                Вместимость: {{ val.auditoriumAmount }}<br>
+                                                Преподаватели:
+                                                <ul>
+                                                {% for lect in val.listOfLecturers %}
+                                                    <li>{{ lect.lecturer_title }}</li>
+                                                {% endfor %}
+                                                </ul>
+                                                <br><br>
+                                            {% endfor %}
+                                            </td>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                {% endif %}
+
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endfor %}
+
+        {% else %}
+            <div class="container6">
+                <p>Сначала введите запрос</p>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

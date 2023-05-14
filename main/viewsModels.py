@@ -1,10 +1,4 @@
 import requests
-from dataclasses import dataclass
-import json
-
-from main.data.RaspTable import Raspisanie, LessonTuple
-
-
 class TableViewModel():
 
     def __init__(self):
@@ -37,7 +31,7 @@ class TableViewModel():
         response = requests.get('https://rasp.omgtu.ru/api/search', params=search_params)
         return response.json()
 
-    def get_schedule(self, type: str, id: int, start: str, end: str) -> Raspisanie:
+    def get_schedule(self, type: str, id: int, start: str, end: str) -> dict:
         """
         Get schedule from RUZ API
         Example of request: https://rasp.omgtu.ru/api/schedule/group/1?start=2023.05.10&end=2023.05.10
@@ -56,15 +50,5 @@ class TableViewModel():
             "lng": 1
         }
         response = requests.get('https://rasp.omgtu.ru/api/schedule/' + type + '/' + str(id),
-                                params=schedule_params).json()
-
-        raspisanie = Raspisanie(
-            start,
-            [
-                LessonTuple(
-
-                )
-            ]
-        )
-
-        return raspisanie
+                                params=schedule_params)
+        return response.json()
